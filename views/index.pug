@@ -1,0 +1,42 @@
+doctype html
+html(lang='en')
+  head
+    title App catalogue
+    link(rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css")
+    style
+      include style.css
+    include priceLabel.pug
+body
+  div.ui.container
+    include header.pug
+    div.ui.segment.divided.items
+      if apps.length == 0
+        div.ui.info.message= "No apps matching search term " + search + " found, try simpler phrase."
+      each app in apps
+        div.item
+          div.ui.tiny.image
+            a(href="app/" + app['id'])
+              img(src= app['image'])
+          div.middle.aligned.content
+            a.header(href="app/" + app['id'])= app['name']
+            div.meta
+              a(href="app/" + app['id'])= app['genre']
+            div.extra
+              a(href="app/" + app['id'])
+                +label(app['price'])
+    if apps.length > 0
+      div.ui.segment.three.column.grid#pagination
+        - let prevPageLink = "/?p=" + (page-1) + (search ? "&search="+search : "")
+        - let nextPageLink = "/?p=" + (page+1) + (search ? "&search="+search : "")
+        div.column.left.aligned
+          unless page == 1
+            a(href=prevPageLink)
+              i.left.angle.icon
+              | Previous page
+        div.column.center.aligned
+          strong.ui.center.aligned(style="margin:0 2em;")= page + '/' + pageCount
+        div.column.right.aligned
+          unless page >= pageCount
+            a(href=nextPageLink)
+              | Next page 
+              i.right.angle.icon

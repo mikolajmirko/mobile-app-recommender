@@ -1,0 +1,12 @@
+div.ui.two.column.stackable.grid#pageHeader
+    div.column
+        a(href="/")
+            h1.ui.aligned.inverted.header
+                i.icon.app.store.ios
+                | App catalogue
+    div.column
+        form(action="/")
+            div.ui.action.left.icon.input.fluid
+                i.search.icon
+                input(type="text" placeholder="Search..." name="search" value=search required)
+                button.ui.teal.button(type="submit") Search

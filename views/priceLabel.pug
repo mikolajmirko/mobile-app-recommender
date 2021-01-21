@@ -1,0 +1,9 @@
+mixin label(price, isButton=false)
+  - let isFree = price == 0
+  - let priceLabel = isFree ? 'Free' : price + '$'
+    unless isButton
+        div.ui.label(class= isFree ? 'teal' : 'orange')= priceLabel
+    else
+        div.ui.animated.fade.button.fluid(tabindex="0" class= isFree ? 'teal' : 'orange')
+            div.visible.content= isFree ? "Download" : "Buy"
+            div.hidden.content= priceLabel

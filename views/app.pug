@@ -1,0 +1,36 @@
+doctype html
+html(lang='en')
+  head
+    title= app['name']
+    link(rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css")
+    style
+      include style.css
+    include priceLabel.pug
+body
+  div.ui.container
+    include header.pug
+    div.ui.segment.items
+      div.item
+        div.ui.small.image
+          img(src= app['image'])
+          br
+          +label(app['price'], true)
+        div.content
+          div.header= app['name']
+          div.meta
+            a= app['genre']
+          div.extra
+            +label(app['price'])
+          div.description.ui.info.message
+            p(style='white-space:pre-wrap; overflow-y:auto; max-height: 240px')= app['description']
+    div.ui.segment
+      h4.ui.header= similarBased ? "You may also like..." : "Other " + app['genre'] + " apps"
+      div.ui.six.doubling.cards.eight
+        each app in recommended
+          a.ui.card(href="/app/" + app['id'] class=( app['price'] == 0 ? 'teal' : 'orange'))
+            div.image.tiny
+              img(src= app['image'])
+            div.content
+              div.header= app['name']
+            div.extra.content
+              +label(app['price'])
